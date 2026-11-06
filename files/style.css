@@ -1,0 +1,1122 @@
+/* Healing Blood – css/style.css */
+
+/* ==========================================================
+   1. VARIÁVEIS DE TEMA (claro / escuro)
+   ========================================================== */
+
+:root {
+  --bg: #f7f6f4;
+  --card: #fff;
+  --tx: #1f1f1f;
+  --mu: #6b6b6b;
+  --ln: #e4e2de;
+  --r: #b3122b;
+  --r2: #8f0e22;
+  --soft: #f6e9eb;
+  --ok: #15803d;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top,0px);
+  padding-bottom: env(safe-area-inset-bottom,0px);
+}
+
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme=light]) {
+    --bg: #141414;
+    --card: #1e1e1e;
+    --tx: #ececec;
+    --mu: #9b9b9b;
+    --ln: #33332f;
+    --soft: #33191d;
+    --ok: #4ade80;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme=dark] {
+  --bg: #141414;
+  --card: #1e1e1e;
+  --tx: #ececec;
+  --mu: #9b9b9b;
+  --ln: #33332f;
+  --soft: #33191d;
+  --ok: #4ade80;
+  color-scheme: dark;
+}
+
+/* ==========================================================
+   2. BASE
+   ========================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  font-family: 'Inter',system-ui,sans-serif;
+  background: var(--bg);
+  color: var(--tx);
+  padding: 0 16px 24px;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.hide {
+  display: none!important;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+svg.i {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: -.12em;
+}
+
+/* ==========================================================
+   3. COMPONENTES (botões, campos, marca)
+   ========================================================== */
+
+.btn {
+  padding: 11px 20px;
+  background: var(--r);
+  color: #fff;
+  border: 1px solid var(--r);
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: .95rem;
+  transition: background .15s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--r2);
+}
+
+.btn:disabled {
+  background: var(--ln);
+  border-color: var(--ln);
+  color: var(--mu);
+  cursor: not-allowed;
+}
+
+.btn.sec {
+  background: transparent;
+  color: var(--tx);
+  border-color: var(--ln);
+}
+
+.btn.sec:hover:not(:disabled) {
+  background: var(--bg);
+}
+
+.btn.sm {
+  padding: 7px 14px;
+  font-size: .85rem;
+}
+
+input, select {
+  padding: 11px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--ln);
+  background: var(--card);
+  color: var(--tx);
+  font: inherit;
+  outline: 0;
+  width: 100%;
+}
+
+input:focus, select:focus {
+  border-color: var(--r);
+}
+
+label {
+  font-size: .85rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--r);
+}
+
+.logo svg {
+  width: 22px;
+  height: 22px;
+}
+
+a.btn {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  letter-spacing: .2em;
+  color: var(--r);
+  text-transform: uppercase;
+}
+
+.brand img {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+
+.brand span {
+  font-weight: 300;
+}
+
+.brand b {
+  font-weight: 700;
+  margin-left: -.1em;
+}
+
+.brand-full {
+  display: block;
+  width: 230px;
+  max-width: 80%;
+  margin: 0 auto 4px;
+}
+
+/* ==========================================================
+   4. SELETOR DE TEMA
+   ========================================================== */
+
+.theme {
+  display: inline-flex;
+  border: 1px solid var(--ln);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.theme button {
+  border: 0;
+  background: none;
+  color: var(--mu);
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.theme .ti {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme button.on {
+  background: var(--soft);
+  color: var(--r);
+}
+
+#auth-theme {
+  position: fixed;
+  top: calc(14px + env(safe-area-inset-top,0px));
+  right: 14px;
+}
+
+/* ==========================================================
+   5. LOGIN E CADASTRO
+   ========================================================== */
+
+#auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+}
+
+.auth-card {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-radius: 8px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-card h1 {
+  font-size: 1.4rem;
+  margin: 1.2rem 0 .2rem;
+}
+
+.sub {
+  color: var(--mu);
+  font-size: .92rem;
+  margin-bottom: 1.2rem;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--ln);
+  margin-bottom: 1.2rem;
+}
+
+.tabs button {
+  flex: 1;
+  border: 0;
+  background: none;
+  padding: 10px;
+  font-weight: 600;
+  color: var(--mu);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tabs button.on {
+  color: var(--r);
+  border-color: var(--r);
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.err {
+  color: var(--r);
+  font-size: .88rem;
+  min-height: 1.2em;
+}
+
+/* ==========================================================
+   6. CABEÇALHO E NAVEGAÇÃO
+   ========================================================== */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 0 0;
+  border-bottom: 1px solid var(--ln);
+  margin-bottom: 28px;
+}
+
+nav {
+  display: flex;
+  gap: 4px;
+  order: 3;
+  width: 100%;
+}
+
+nav button {
+  border: 0;
+  background: none;
+  padding: 10px 14px;
+  font-weight: 500;
+  color: var(--mu);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-size: .95rem;
+}
+
+nav button.on {
+  color: var(--r);
+  border-color: var(--r);
+  font-weight: 600;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: .92rem;
+  color: var(--mu);
+}
+
+/* ==========================================================
+   7. RECOMPENSAS (tela inicial)
+   ========================================================== */
+
+h1.pg {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.lead {
+  color: var(--mu);
+  margin-bottom: 20px;
+}
+
+.pts {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.pts small {
+  color: var(--mu);
+  font-size: .85rem;
+  display: block;
+}
+
+.pts b {
+  font-size: 2.6rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.pts b span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--mu);
+  margin-left: 6px;
+}
+
+.pts b .pts-num {
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+.note {
+  font-size: .85rem;
+  color: var(--mu);
+  margin-bottom: 8px;
+}
+
+h2.t {
+  margin: 32px 0 14px;
+  font-size: 1.1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+  gap: 14px;
+}
+
+.rc {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color .15s;
+}
+
+.rc:hover {
+  border-color: var(--r);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.tile {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex: none;
+}
+
+.rc h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.pr {
+  font-size: .88rem;
+  color: var(--r);
+  font-weight: 600;
+}
+
+.bar {
+  height: 4px;
+  background: var(--ln);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--r);
+  transition: width .6s;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.st {
+  font-size: .85rem;
+  color: var(--mu);
+}
+
+.st.ok {
+  color: var(--ok);
+  font-weight: 600;
+}
+
+.box {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-radius: 8px;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+  max-width: 460px;
+}
+
+/* ==========================================================
+   8. LEMBRETE DE DOAÇÃO
+   ========================================================== */
+
+.rem {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-left: 4px solid var(--r);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.rem.ok {
+  border-left-color: var(--ok);
+}
+
+.rem h3 {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.rem p {
+  font-size: .88rem;
+  color: var(--mu);
+}
+
+.rem .bar {
+  margin: 12px 0 0;
+}
+
+/* ==========================================================
+   9. HISTÓRICOS (doações e resgates)
+   ========================================================== */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stat {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.stat b {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.stat span {
+  color: var(--mu);
+  font-size: .85rem;
+}
+
+.chips {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.chips button {
+  border: 1px solid var(--ln);
+  background: var(--card);
+  color: var(--mu);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: .88rem;
+  font-weight: 500;
+}
+
+.chips button.on {
+  border-color: var(--r);
+  color: var(--r);
+  background: var(--soft);
+}
+
+.list {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-radius: 8px;
+}
+
+.hi {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--ln);
+  flex-wrap: wrap;
+}
+
+.hi:last-child {
+  border: 0;
+}
+
+.hi .ic {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: var(--soft);
+  color: var(--r);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex: none;
+}
+
+.hi .in {
+  flex: 1;
+  min-width: 150px;
+}
+
+.hi .in b {
+  display: block;
+  font-weight: 600;
+  font-size: .95rem;
+}
+
+.hi small {
+  color: var(--mu);
+}
+
+.code {
+  font-family: ui-monospace,monospace;
+  background: var(--bg);
+  border: 1px solid var(--ln);
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: .8rem;
+  color: var(--tx);
+}
+
+.hp {
+  font-weight: 600;
+  min-width: 70px;
+  text-align: right;
+}
+
+.hp.pos {
+  color: var(--ok);
+}
+
+.badge {
+  font-size: .75rem;
+  color: var(--ok);
+  font-weight: 600;
+}
+
+.empty {
+  text-align: center;
+  color: var(--mu);
+  padding: 36px 16px;
+}
+
+/* ==========================================================
+   10. MODAL DE RESGATE
+   ========================================================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 12px;
+}
+
+.mc {
+  background: var(--card);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 92vh;
+  overflow: auto;
+  padding: 24px;
+}
+
+.eta {
+  font-size: .78rem;
+  color: var(--mu);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 14px;
+}
+
+.mh {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.mh .tile {
+  width: 56px;
+  height: 56px;
+  font-size: 1.9rem;
+}
+
+.mh h2 {
+  font-size: 1.2rem;
+}
+
+.dsc {
+  background: var(--bg);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: .92rem;
+  margin-bottom: 18px;
+}
+
+.sum {
+  border: 1px solid var(--ln);
+  border-radius: 6px;
+  margin: 14px 0 18px;
+}
+
+.sum div {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--ln);
+  font-size: .93rem;
+}
+
+.sum div:last-child {
+  border: 0;
+  font-weight: 700;
+  background: var(--bg);
+}
+
+.neg {
+  color: var(--r);
+}
+
+.mb {
+  display: flex;
+  gap: 10px;
+}
+
+.mb .btn {
+  flex: 1;
+}
+
+.chk {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ok);
+  color: #fff;
+  font-size: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 14px;
+}
+
+.cbox {
+  border: 1px dashed var(--r);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+
+.cbox small {
+  color: var(--mu);
+}
+
+.cbox b {
+  display: block;
+  font-family: ui-monospace,monospace;
+  font-size: 1.3rem;
+  letter-spacing: 1.5px;
+  color: var(--r);
+}
+
+/* ==========================================================
+   11. AVISOS (toast) E RODAPÉ
+   ========================================================== */
+
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom,0px));
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 11px 18px;
+  border-radius: 6px;
+  font-size: .9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+  z-index: 2000;
+  max-width: 90vw;
+}
+
+#toast.on {
+  opacity: 1;
+}
+
+footer {
+  text-align: center;
+  color: var(--mu);
+  font-size: .85rem;
+  padding: 32px 0 8px;
+}
+
+/* ==========================================================
+   12. RESPONSIVO
+   ========================================================== */
+
+@media (min-width:720px) {
+  nav {
+    order: 0;
+    width: auto;
+    margin-left: 24px;
+    margin-right: auto;
+  }
+}
+
+
+/* ==========================================================
+   13. AGENDA E CALENDÁRIO
+   ========================================================== */
+
+nav {
+  flex-wrap: wrap;
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.cal {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.cal-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cal-h b {
+  text-transform: capitalize;
+}
+
+.cal-h button {
+  border: 1px solid var(--ln);
+  background: var(--card);
+  color: var(--tx);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+}
+
+.cal-g {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.cal-g .wd {
+  font-size: .75rem;
+  color: var(--mu);
+  padding: 4px 0;
+}
+
+.cd {
+  aspect-ratio: 1;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--tx);
+  border-radius: 6px;
+  font-size: .88rem;
+}
+
+.cd:not(.empty):hover {
+  background: var(--bg);
+}
+
+.cd.empty {
+  pointer-events: none;
+}
+
+.cd.today {
+  font-weight: 700;
+  border-color: var(--mu);
+}
+
+.cd.don,
+.cd.don:hover {
+  background: var(--r);
+  color: #fff;
+}
+
+.cd.sch {
+  border: 2px dashed var(--r);
+  color: var(--r);
+  font-weight: 700;
+}
+
+.cd.elig {
+  border: 2px solid var(--ok);
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.leg {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: .8rem;
+  color: var(--mu);
+  margin-top: 12px;
+}
+
+.leg i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: -1px;
+}
+
+.soon {
+  font-size: .72rem;
+  font-weight: 600;
+  background: var(--soft);
+  color: var(--r);
+  padding: 2px 8px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.soon-box {
+  opacity: .85;
+}
+
+.flow {
+  margin-left: 18px;
+  font-size: .92rem;
+  color: var(--mu);
+  display: grid;
+  gap: 4px;
+}
+
+/* ==========================================================
+   14. CHECKLIST "POSSO DOAR?"
+   ========================================================== */
+
+.grp {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.grp h3 {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--ln);
+  font-size: .95rem;
+}
+
+.grp h3 small {
+  display: block;
+  color: var(--mu);
+  font-weight: 400;
+  font-size: .82rem;
+}
+
+.ck {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--ln);
+  cursor: pointer;
+  margin: 0;
+  font-weight: 400;
+  font-size: .93rem;
+}
+
+.ck:last-child {
+  border: 0;
+}
+
+.ck input {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  padding: 0;
+  flex: none;
+  accent-color: var(--r);
+}
+
+.ck small {
+  display: block;
+  color: var(--mu);
+  font-size: .82rem;
+}
+
+.verdict {
+  background: var(--card);
+  border: 1px solid var(--ln);
+  border-left: 4px solid var(--mu);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  font-size: .93rem;
+}
+
+.verdict h3 {
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.verdict ul {
+  margin: 8px 0 0 18px;
+  display: grid;
+  gap: 3px;
+}
+
+.verdict.bad {
+  border-left-color: var(--r);
+}
+
+.verdict.warn {
+  border-left-color: #d97706;
+}
+
+.verdict.good {
+  border-left-color: var(--ok);
+}
+
+/* ==========================================================
+   15. PERFIL
+   ========================================================== */
+
+.fgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+}
+
+input[readonly] {
+  color: var(--mu);
+  background: var(--bg);
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--r);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  flex: none;
+}
+
+.kv div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--ln);
+  font-size: .92rem;
+}
+
+.kv span {
+  color: var(--mu);
+}
+
+.warnnote {
+  color: #b45309;
+  font-size: .85rem;
+}

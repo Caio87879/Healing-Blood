@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Healing Blood – Recompensas</title>
+  <link rel="icon" href="assets/icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ícones reutilizáveis (SVG sprite) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="drop" viewBox="0 0 24 24">
+        <path d="M12 2.2c-.4 0-.8.2-1 .5C9 5.4 5 10.2 5 14.6A7 7 0 0 0 12 22a7 7 0 0 0 7-7.4c0-4.4-4-9.2-6-11.9-.2-.3-.6-.5-1-.5z"/>
+      </symbol>
+      <symbol id="heart" viewBox="0 0 24 24">
+        <path d="M12 21s-8.5-5.6-8.5-11.6A4.9 4.9 0 0 1 12 6.8a4.9 4.9 0 0 1 8.5 2.6C20.5 15.4 12 21 12 21z"/>
+      </symbol>
+      <symbol id="sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+      </symbol>
+      <symbol id="moon" viewBox="0 0 24 24">
+        <path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="wrap">
+
+    <!-- =====================================================
+         LOGIN E CADASTRO
+         ===================================================== -->
+    <section id="auth">
+
+      <div class="theme" id="auth-theme" role="group" aria-label="Tema">
+        <button data-t="light" title="Modo claro" aria-label="Modo claro" onclick="setTheme('light')">
+          <svg class="ti"><use href="#sun"/></svg>
+        </button>
+        <button data-t="dark" title="Modo escuro" aria-label="Modo escuro" onclick="setTheme('dark')">
+          <svg class="ti"><use href="#moon"/></svg>
+        </button>
+      </div>
+
+      <div class="auth-card">
+        <img class="brand-full" src="assets/logo.png" alt="Healing Blood – Doe sangue. Salve vidas.">
+        <h1>Acesse sua conta</h1>
+        <p class="sub">Acompanhe suas doações e troque seus pontos por recompensas.</p>
+
+        <div class="tabs">
+          <button id="tl" class="on" onclick="setAuthMode('login')">Entrar</button>
+          <button id="tr" onclick="setAuthMode('reg')">Criar conta</button>
+        </div>
+
+        <form id="af" onsubmit="submitAuth(event)">
+          <div id="gn" class="hide">
+            <label for="aname">Nome completo</label>
+            <input id="aname" autocomplete="name">
+          </div>
+
+          <div id="gs" class="hide">
+            <label for="asex">Sexo</label>
+            <select id="asex">
+              <option value="">Selecione</option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+            </select>
+            <div class="note" style="margin:4px 0 0">Define o intervalo entre doações e os pontos de cada uma.</div>
+          </div>
+
+          <div>
+            <label for="amail">E-mail</label>
+            <input id="amail" type="email" required autocomplete="email">
+          </div>
+
+          <div>
+            <label for="apass">Senha</label>
+            <input id="apass" type="password" required minlength="6" placeholder="Mínimo de 6 caracteres" autocomplete="current-password">
+          </div>
+
+          <div id="gp" class="hide">
+            <label for="apass2">Confirmar senha</label>
+            <input id="apass2" type="password" autocomplete="new-password">
+          </div>
+
+          <div class="err" id="aerr"></div>
+          <button class="btn" id="abtn">Entrar</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         APLICATIVO (usuário logado)
+         ===================================================== -->
+    <section id="app" class="hide">
+
+      <header>
+        <div class="brand">
+          <img src="assets/icon.png" alt="">
+          <span>Healing</span><b>Blood</b>
+        </div>
+
+        <nav>
+          <button id="n-home" class="on" onclick="showView('home')">Recompensas</button>
+          <button id="n-don" onclick="showView('don')">Doações</button>
+          <button id="n-res" onclick="showView('res')">Resgates</button>
+          <button id="n-chk" onclick="showView('chk')">Posso doar?</button>
+          <button id="n-prof" onclick="showView('prof')">Perfil</button>
+        </nav>
+
+        <div class="user">
+          <div class="theme" role="group" aria-label="Tema">
+            <button data-t="light" title="Modo claro" aria-label="Modo claro" onclick="setTheme('light')">
+              <svg class="ti"><use href="#sun"/></svg>
+            </button>
+            <button data-t="dark" title="Modo escuro" aria-label="Modo escuro" onclick="setTheme('dark')">
+              <svg class="ti"><use href="#moon"/></svg>
+            </button>
+          </div>
+          <span id="uname"></span>
+          <button class="btn sec sm" onclick="logout()">Sair</button>
+        </div>
+      </header>
+
+      <!-- Tela: Recompensas -->
+      <div id="v-home">
+        <h1 class="pg">Recompensas por doação</h1>
+        <p class="lead" id="lead"></p>
+        <div id="rem-home"></div>
+
+        <div class="pts">
+          <div>
+            <small>Seu saldo</small>
+            <b><span id="points" class="pts-num">0</span><span>pontos</span></b>
+          </div>
+          <button class="btn" onclick="doarSangue()">Registrar doação de sangue</button>
+        </div>
+        <p class="note">Nesta versão de demonstração, o botão acima simula uma doação confirmada. Em breve, as doações serão validadas pelo comprovante do hemocentro.</p>
+
+        <h2 class="t">Recompensas disponíveis</h2>
+        <div class="grid" id="grid"></div>
+
+        <h2 class="t">Doar pontos para uma instituição</h2>
+        <div class="box">
+          <div>
+            <label for="inst">Instituição</label>
+            <select id="inst" onchange="showInstitution()"></select>
+            <div class="note" id="inst-info" style="margin:6px 0 0"></div>
+          </div>
+          <div>
+            <label for="valor">Quantidade de pontos</label>
+            <input type="number" id="valor" min="1" placeholder="Ex.: 50">
+          </div>
+          <button class="btn" style="justify-self:start" onclick="doarInstituicao()">Doar pontos</button>
+        </div>
+      </div>
+
+      <!-- Tela: Histórico de doações -->
+      <div id="v-don" class="hide">
+        <h1 class="pg">Histórico de doações</h1>
+        <p class="lead">Suas doações de sangue e os pontos que você repassou a instituições.</p>
+        <div id="rem-don"></div>
+
+        <div class="cols">
+          <div class="cal" id="cal"></div>
+          <div class="box" id="sched-box" style="max-width:none">
+            <h3 style="font-size:1rem">Agendar doação</h3>
+            <div>
+              <label for="sdate">Data</label>
+              <input type="date" id="sdate">
+            </div>
+            <div>
+              <label for="splace">Local</label>
+              <select id="splace">
+                <option>Hemope (Recife)</option>
+                <option>Outro hemocentro ou posto de coleta</option>
+              </select>
+            </div>
+            <button class="btn" style="justify-self:start" onclick="addSchedule()">Agendar</button>
+            <div>
+              <label>Agendamentos</label>
+              <div id="slist"></div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="t">Suas doações</h2>
+        <div class="stats" id="dstats"></div>
+        <div class="chips">
+          <button id="d-all" class="on" onclick="setDonationFilter('all')">Todas</button>
+          <button id="d-sangue" onclick="setDonationFilter('sangue')">Sangue</button>
+          <button id="d-doacao" onclick="setDonationFilter('doacao')">Instituições</button>
+        </div>
+        <div id="dlist"></div>
+
+        <!-- Futuro: validação da doação por comprovante -->
+        <h2 class="t">Validar doação com comprovante <span class="soon">Em breve</span></h2>
+        <div class="box soon-box" style="max-width:none">
+          <ol class="flow">
+            <li>Você doa sangue no hemocentro</li>
+            <li>Anexa o comprovante aqui (foto ou PDF)</li>
+            <li>O sistema analisa o documento</li>
+            <li>Se estiver tudo certo, os pontos são liberados</li>
+          </ol>
+          <input type="file" disabled accept="image/*,application/pdf">
+          <button class="btn" style="justify-self:start" disabled>Enviar comprovante</button>
+        </div>
+      </div>
+
+      <!-- Tela: Histórico de resgates -->
+      <div id="v-res" class="hide">
+        <h1 class="pg">Histórico de resgates</h1>
+        <p class="lead">Prêmios que você já resgatou e seus códigos.</p>
+        <div class="stats" id="rstats"></div>
+        <div id="rlist"></div>
+      </div>
+
+      <!-- Tela: Posso doar? (checklist) -->
+      <div id="v-chk" class="hide">
+        <h1 class="pg">Posso doar sangue?</h1>
+        <p class="lead">Marque o que se aplica a você e veja se há algum impedimento, temporário ou definitivo.</p>
+        <div id="chk-result"></div>
+        <div id="chk-groups"></div>
+        <button class="btn sec sm" onclick="resetChecklist()">Limpar respostas</button>
+      </div>
+
+      <!-- Tela: Perfil -->
+      <div id="v-prof" class="hide">
+        <h1 class="pg">Meu perfil</h1>
+        <p class="lead">Seus dados de doador. O tipo sanguíneo e o sexo ajudam a calcular compatibilidade e intervalos.</p>
+        <div id="prof"></div>
+      </div>
+
+      <footer>Healing Blood</footer>
+    </section>
+  </div>
+
+  <!-- Modal (resgate e perfil) e aviso -->
+  <div id="modal" class="modal" onclick="onBackdropClick(event)">
+    <div class="mc" id="mc"></div>
+  </div>
+  <div id="toast"></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
